@@ -19,7 +19,28 @@
     <script>
         
         // add code here
-    
+        const select = document.getElementById('select_item');
+        const cart = document.getElementById('shopList');
+
+        function itemExists(text) {
+            const items = cart.getElementsByTagName('li');
+            for (let i = 0; i < items.length; i++) {
+            if (items[i].textContent === text) return true;
+            }
+            return false;
+        }
+
+        function addToCart(value) {
+            if (itemExists(value)) return; // prevent duplicates
+            const li = document.createElement('li');
+            li.textContent = value; // safe (no innerHTML)
+            cart.appendChild(li);
+        }
+
+        // Add on change (Selenium will change selection and also dispatch a change event)
+        select.addEventListener('change', function () {
+            addToCart(select.value);
+        });
     </script>
 
     
